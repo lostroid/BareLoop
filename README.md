@@ -8,7 +8,7 @@ Bare Metal (Super loop)
 Bare Loop is a project based on the Super Loop concept,   
 designed to provide a more standardized and structured approach to sequential execution.  
   
-# Coding style  
+# Coding Style  
 [LINK_EN](docs/coding_style.en.md)  
 [LINK KR](docs/coding_style.kr.md)  
   
