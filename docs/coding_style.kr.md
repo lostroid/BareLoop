@@ -5,16 +5,16 @@
 ### 형식
 
 ```
-[범위] + [종류...] + _ + PascalCase
+[범위] + [종류...] + _ + snake_case
 ```
 
 ```c
-g + ap + _ + PcmBuf  ->  gap_PcmBuf
+g + ap + _ + pcm_buf  ->  gap_pcm_buf
 ```
 
 - 범위 접두어가 가장 앞에 오며, 최대 1개만 씁니다.
 - 종류 접두어는 조합할 수 있습니다. **마지막 글자가 실제 정체입니다.**
-- `_` 뒤의 이름 본체는 PascalCase로 씁니다.
+- `_` 뒤의 이름 본체는 snake_case로 씁니다. 단, 매크로(`d_`)는 대문자 SNAKE_CASE로 씁니다 (예: `d_BUF_SIZE`).
 
 ---
 
@@ -22,10 +22,10 @@ g + ap + _ + PcmBuf  ->  gap_PcmBuf
 
 | 접두어 | 의미           | 예시                        |
 |--------|----------------|-----------------------------|
-| `g`    | 파일 static    | `static uint8_t g_Count;`   |
-| `x`    | extern 전역    | `extern uint8_t x_Count;`   |
-| `l`    | 함수 내 static | `static uint8_t l_Count;`   |
-| (없음) | 지역 변수, 함수 인자, 구조체 멤버 | `uint8_t v_Idx;` |
+| `g`    | 파일 static    | `static uint8_t g_count;`   |
+| `x`    | extern 전역    | `extern uint8_t x_count;`   |
+| `l`    | 함수 내 static | `static uint8_t l_count;`   |
+| (없음) | 지역 변수, 함수 인자, 구조체 멤버 | `uint8_t v_idx;` |
 
 ---
 
@@ -49,16 +49,16 @@ g + ap + _ + PcmBuf  ->  gap_PcmBuf
 
 | 접두어 | 의미                                   | 예시                              |
 |--------|----------------------------------------|-----------------------------------|
-| `ap_`  | 배열 포인터 (배열을 가리키는 포인터)   | `uint16_t (*ap_Buf)[256];`        |
-| `pa_`  | 포인터 배열 (포인터들의 배열)          | `uint16_t *pa_Buf[4];`            |
-| `pp_`  | 포인터의 포인터                        | `uint8_t **pp_Data;`              |
-| `fp_`  | 함수 포인터                            | `void (*fp_Cb)(void);`            |
-| `fpa_` | 함수 포인터 배열                       | `void (*fpa_Isr[8])(void);`       |
-| `sp_`  | 구조체 포인터                          | `ts_Audio *sp_Audio;`             |
-| `sa_`  | 구조체 배열                            | `ts_Audio sa_Ch[2];`              |
-| `ca_`  | 상수 배열                              | `const uint8_t ca_Tbl[16];`       |
-| `cp_`  | 상수 포인터 (상수를 가리키는 포인터)   | `const uint8_t *cp_Data;`         |
-| `pc_`  | 포인터 상수 (주소가 고정된 포인터)     | `uint8_t *const pc_Reg;`          |
+| `ap_`  | 배열 포인터 (배열을 가리키는 포인터)   | `uint16_t (*ap_buf)[256];`        |
+| `pa_`  | 포인터 배열 (포인터들의 배열)          | `uint16_t *pa_buf[4];`            |
+| `pp_`  | 포인터의 포인터                        | `uint8_t **pp_data;`              |
+| `fp_`  | 함수 포인터                            | `void (*fp_cb)(void);`            |
+| `fpa_` | 함수 포인터 배열                       | `void (*fpa_isr[8])(void);`       |
+| `sp_`  | 구조체 포인터                          | `ts_audio *sp_audio;`             |
+| `sa_`  | 구조체 배열                            | `ts_audio sa_ch[2];`              |
+| `ca_`  | 상수 배열                              | `const uint8_t ca_tbl[16];`       |
+| `cp_`  | 상수 포인터 (상수를 가리키는 포인터)   | `const uint8_t *cp_data;`         |
+| `pc_`  | 포인터 상수 (주소가 고정된 포인터)     | `uint8_t *const pc_reg;`          |
 
 ---
 
@@ -68,23 +68,23 @@ g + ap + _ + PcmBuf  ->  gap_PcmBuf
 
 | 접두어 | 의미                 | 예시                                 |
 |--------|----------------------|--------------------------------------|
-| `ts_`  | 구조체 타입          | `typedef struct { ... } ts_Audio;`   |
-| `te_`  | 열거형 타입          | `typedef enum { ... } te_State;`     |
-| `tu_`  | 공용체 타입          | `typedef union { ... } tu_Word;`     |
-| `ta_`  | 배열 타입            | `typedef uint8_t ta_Mac[6];`         |
-| `tfp_` | 함수 포인터 타입     | `typedef void (*tfp_Cb)(void);`      |
-| `t_`   | 기본 타입 별칭       | `typedef uint16_t t_Sample;`         |
+| `ts_`  | 구조체 타입          | `typedef struct { ... } ts_audio;`   |
+| `te_`  | 열거형 타입          | `typedef enum { ... } te_state;`     |
+| `tu_`  | 공용체 타입          | `typedef union { ... } tu_word;`     |
+| `ta_`  | 배열 타입            | `typedef uint8_t ta_mac[6];`         |
+| `tfp_` | 함수 포인터 타입     | `typedef void (*tfp_cb)(void);`      |
+| `t_`   | 기본 타입 별칭       | `typedef uint16_t t_sample;`         |
 
 타입과 변수의 짝:
 
 | 타입       | 변수                                          |
 |------------|-----------------------------------------------|
-| `ts_Audio` | `s_Audio`, `gs_Audio`, `sp_Audio`, `sa_Audio` |
-| `te_State` | `e_State`, `ge_State`                         |
-| `tu_Word`  | `u_Word`, `gu_Word`                           |
-| `tfp_Cb`   | `fp_Cb`, `gfpa_Cb[4]`                         |
+| `ts_audio` | `s_audio`, `gs_audio`, `sp_audio`, `sa_audio` |
+| `te_state` | `e_state`, `ge_state`                         |
+| `tu_word`  | `u_word`, `gu_word`                           |
+| `tfp_cb`   | `fp_cb`, `gfpa_cb[4]`                         |
 
-> 일반 포인터는 typedef로 만들지 않습니다 (예: `typedef uint8_t *tp_Buf;`).
+> 일반 포인터는 typedef로 만들지 않습니다 (예: `typedef uint8_t *tp_buf;`).
 > 변수 이름에서 포인터라는 게 드러나지 않고 `const` 위치가 헷갈리기 때문입니다.
 > 함수 포인터 타입(`tfp_`)만 예외로 허용합니다.
 
@@ -96,10 +96,10 @@ g + ap + _ + PcmBuf  ->  gap_PcmBuf
 
 | 접두어 | 의미         | 예시                                     |
 |--------|--------------|------------------------------------------|
-| `d_`   | 매크로       | `#define d_BufSize 512`                  |
-| `f_`   | 함수         | `void f_AudioPlay(void);`                |
-| `i_`   | inline 함수  | `static inline uint8_t i_IsBusy(void);`  |
-| `m_`   | 열거형 멤버  | `m_Idle`, `m_Play`                       |
+| `d_`   | 매크로       | `#define d_BUF_SIZE 512`                 |
+| `f_`   | 함수         | `void f_audio_play(void);`               |
+| `i_`   | inline 함수  | `static inline uint8_t i_is_busy(void);` |
+| `m_`   | 열거형 멤버  | `m_idle`, `m_play`                       |
 
 ---
 
@@ -110,8 +110,8 @@ g + ap + _ + PcmBuf  ->  gap_PcmBuf
 3. **`v`** — 다른 접두어가 하나도 없을 때만
 
 ```c
-static uint16_t ga_Pcm[512];   /* OK  */
-static uint16_t gva_Pcm[512];  /* NG : v 불필요 */
+static uint16_t ga_pcm[512];   /* OK  */
+static uint16_t gva_pcm[512];  /* NG : v 불필요 */
 ```
 
 ---
@@ -120,34 +120,34 @@ static uint16_t gva_Pcm[512];  /* NG : v 불필요 */
 
 ```c
 /* 타입 */
-typedef enum { m_Idle, m_Play, m_Stop } te_State;
-typedef void (*tfp_Cb)(void);
+typedef enum { m_idle, m_play, m_stop } te_state;
+typedef void (*tfp_cb)(void);
 
 typedef struct {
-    te_State   e_State;
-    uint8_t    b_Mute : 1;
-    uint8_t    b_Loop : 1;
-    uint16_t  *p_Pcm;
-    tfp_Cb     fp_Done;
-} ts_Audio;
+    te_state   e_state;
+    uint8_t    b_mute : 1;
+    uint8_t    b_loop : 1;
+    uint16_t  *p_pcm;
+    tfp_cb     fp_done;
+} ts_audio;
 
 /* 파일 static */
-static ts_Audio        gs_Audio;
-static ts_Audio       *gsp_Cur;
-static uint16_t        ga_Pcm[512];
-static uint16_t      (*gap_Half)[256];
-static const uint8_t   gca_VolTbl[16];
-static tfp_Cb          gfpa_Cb[4];
+static ts_audio        gs_audio;
+static ts_audio       *gsp_cur;
+static uint16_t        ga_pcm[512];
+static uint16_t      (*gap_half)[256];
+static const uint8_t   gca_vol_tbl[16];
+static tfp_cb          gfpa_cb[4];
 
 /* extern */
-extern const uint16_t  xca_PcmData[];
+extern const uint16_t  xca_pcm_data[];
 
 /* 함수 */
-void f_AudioPlay(uint16_t *p_Src, uint32_t v_Len)
+void f_audio_play(uint16_t *p_src, uint32_t v_len)
 {
-    static uint32_t l_PlayCnt;
-    uint32_t        v_Idx;
-    te_State        e_Prev = gs_Audio.e_State;
+    static uint32_t l_play_cnt;
+    uint32_t        v_idx;
+    te_state        e_prev = gs_audio.e_state;
 }
 ```
 
