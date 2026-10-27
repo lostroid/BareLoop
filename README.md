@@ -1,64 +1,18 @@
-# BareLoop
-Bare Metal / Super loop 혼합 형태
 
-# Prefix <접두어>
-```C
-01. a_ = array                         e.g. a_data[]  
-02. b_ = bit field                     e.g. b_data  
-03. c_ = constant                      e.g, c_data  
-04. d_ = #define macro                 e.g. d_data  
-05. e_ = enum type                     e.g. e_data  
-06. f_ = function                      e.g. f_data
-07. g_ = global (source file static)   e.g. gv_data   
-08. i_ = inline function               e.g. i_data
-09. l_ = local static variable         e.g. lv_data
-10. m_ = enum member                   e.g. m_data
-11. o_ = bool                          e.g. o_active
-12. p_ = pointer                       e.g. p_data 
-13. s_ = struct                        e.g. s_data 
-14. t_ = typedef                       e.g. t_data 
-15. u_ = union                         e.g. u_data 
-16. v_ = variable                      e.g. v_data
-17. x_ = extern variable               e.g. xv_data
-```
-### noos (no os baremetal base)  
-C base super loop syatem  
-Target board STM32H562ZI (NUCLEO-H563ZI)  
+⚠️Please excuse my English, as I used a translation tool to write this.⚠️   
+# BareLoop  
+Bare Metal (Super loop)  
+
   
-<img width="286" height="519" alt="image" src="https://github.com/user-attachments/assets/236be2e6-b912-41d6-aaed-9ef4e5f1d032" />  
-
-목적   
-Bare Metal의 방식과 Polling 기반으로 동작에 규격화 목적    
-OS 기반 처럼 파일 실행 개념이 아니기에   
-추상화개념 보단 절차적에 중점을 둔 프로젝트 입니다.  
-이는 공장 생산라인의 컨베어밸트 속도 타이밍 중점으로 설계를 타나 냅니다  
+# Purpose  
+Bare Loop is a project based on the Super Loop concept,   
+designed to provide a more standardized and structured approach to sequential execution.  
   
-주의사항   
-- 모든 코드에는 Blocking Delay 사용을 금지한다. (쓸대없는 지연을 제거)  
-- 모든 동작은 함수테이블 -> Swich Case 기반으로 수행을 분리 한다 (Scheduler 기능사용)  
-- case 다음 step 을 넘기는 기준은 인터페이스 전송 후 넘긴다 (전송 시간동안 다른일 처리)  
-- 모든 인터페이스는 Ring Buff 를 기반으로 통신 한다 (폴링 방식으로 순차적처리를 위해)  
-- 기존 코드와 충돌을 방지 및 치환을 빠르게 하기 위해 네이밍 규칙이 존재합니다  
-- Uart.c 경우 f_Uart1 같은 네이밍으로 시작 하며 이것은  
-  추후 수정 전체 치환 작업,색인,키워드 검색시 유리한 정보를 제공합니다.  (뒤에서 자세히 설명)
-- 모든 동작은 어디로 와서 어디로 가는가 데이터 흐름 기반 USB -> SPI 형태로  
-   데이터 흐름 기반으로 네이밍을 작성 한다  
-- 네이밍은 크게 대분류->소분류->기능->설명 헝태로 작성이 되어 있습니다.  
-   Uart1SendAscii 말고 -> f_UART1_Send_Ascii(void) 형태로 _을 넣어 단어사이의 간격으로  
-   빠른 분류를 인식 할수 있다.  
-- 바로 수 us 응답이 필요 한 경우 인터럽트 루틴에서 처리 이외에 기본 인터럽트 카운터변수 만 사용  
-- 인터럽트 처리 방식을 좀더 설명 하면 캐치테이블 개념이다 먼저 치고 들어갈 필요가 없음  
-   순차적으로 처리 대다수 그렇게 빠른 응답성은 필요 없음.  
-    
-### Header File.  
-헤더파일은 소스코드의 목차 입니다.  
-소스코드에 함수는 헤더 파일에 다 작성 합니다.  
-이는 헤더파일을 목차개념으로 활용하기 위한 내용입니다.  
-(네이밍 규칙으로 이름이 충돌 할 일은 거이 없습니다.)  
-
-외부연결 extern 도 헤더파일에 포함 하는 방식을 취합니다.   
-절대 다른 소스코드에 extern 으로 끌어 쓰지 마십시오.   
-extern 을 사용 하길 원하면 해당 대상 헤더를 포함 시키시오.  
+# Coding Style  
+[LINK_EN](docs/coding_style.en.md)  
+[LINK KR](docs/coding_style.kr.md)  
+  
+🖐️Currently being written or revised
 
 ### 활동링크 (해당 유튜브 영상은 전부 위와 같은 기반을 가지고 동작을 합니다)  
 유튜브 : https://www.youtube.com/@lostroid  
