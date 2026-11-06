@@ -87,14 +87,14 @@ void f_{name}_version(void)
     f_dbg_print_version(gv_debug, ga_ver);
 }
 //===================================================================
-/*### schedule time infomation rest (Required)
+/*### schedule time infomation rest (option)
 -------------------------------------------------------------------*/
 void f_{name}_monitor_schedule_reset(void)
 {
     f_scheduler_time_info_reset(&gs_job_ctrl);
 }
 //===================================================================
-/*### scheduler execution time monitoring (Required)
+/*### scheduler execution time monitoring (option)
 -------------------------------------------------------------------*/
 void f_{name}_monitor_schedule(void)
 {
